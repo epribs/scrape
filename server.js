@@ -30,7 +30,11 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/scrape_hw_db");
+if(process.env.NODE_ENV==="production"){
+  mongoose.connect(process.env.MONGODB_URI);
+} else  {
+  mongoose.connect("mongodb://localhost/week18HW");
+}
 var db = mongoose.connection;
 
 // Show any mongoose errors
